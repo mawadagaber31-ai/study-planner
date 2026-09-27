@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Study Planner</title>
+</head>
+
+<body>
+
+    <h1>Study Planner</h1>
+
+    <nav>
+        <a href="/">Dashboard</a> |
+        <a href="/add">Add Task</a> |
+        <a href="/logout">Logout</a>
+    </nav>
+
+    <hr>
+
+    <h2>My Tasks</h2>
+
+    {% if tasks %}
+<div class="filters">
+    <button onclick="filterTasks('all')">All</button>
+    <button onclick="filterTasks('pending')">Pending</button>
+    <button onclick="filterTasks('completed')">Completed</button>
+</div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Subject</th>
+                    <th>Deadline</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.subject }}</td>
+                        <td>{{ task.deadline }}</td>
+                        <td>
+    {% if task.priority == "High" %}
+        <span class="priority high">High</span>
+    {% elif task.priority == "Medium" %}
+        <span class="priority medium">Medium</span>
+    {% else %}
+        <span class="priority low">Low</span>
+    {% endif %}
+</td>
+
+                        <td>
+                            {% if task.completed %}
+                                Completed
+                            {% else %}
+                                Pending
+                            {% endif %}
+                        </td>
+
+                        <td>
+    {% if not task.completed %}
+        <form action="/complete/{{ task.id }}" method="post">
+            <button type="submit">Complete</button>
+        </form>
+    {% else %}
+        Done ✓
+    {% endif %}
+    <a href="/edit/{{ task.id }}">Edit</a>
+    <form action="/delete/{{ task.id }}" method="post">
+    <button type="submit">Delete</button>
+</form>
+</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>No tasks yet. Add your first task!</p>
+
+    {% endif %}
+
+</body>
+<script>
+function filterTasks(filter) {
+    const rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        const status = row.cells[4].textContent.trim().toLowerCase();
+
+        if (filter === "all" || status === filter) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+</script>
+</html>

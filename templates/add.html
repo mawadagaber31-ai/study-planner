@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task | Study Planner</title>
+</head>
+
+<body>
+
+    <h1>Add Task</h1>
+
+    <form action="/add" method="post">
+
+        <input name="title" placeholder="Task title" type="text">
+
+        <br><br>
+
+        <input name="subject" placeholder="Subject" type="text">
+
+        <br><br>
+
+        <label>Deadline:</label>
+        <input name="deadline" type="date">
+
+        <br><br>
+
+        <label>Priority:</label>
+        <select name="priority">
+            <option value="Low">Low</option>
+            <option value="Medium" selected>Medium</option>
+            <option value="High">High</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Add Task</button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Back to Dashboard</a>
+
+</body>
+
+</html>

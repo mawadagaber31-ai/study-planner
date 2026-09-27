@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task | Study Planner</title>
+</head>
+
+<body>
+
+    <h1>Edit Task</h1>
+
+    <form action="/edit/{{ task.id }}" method="post">
+
+        <input name="title" type="text" value="{{ task.title }}">
+
+        <br><br>
+
+        <input name="subject" type="text" value="{{ task.subject }}">
+
+        <br><br>
+
+        <label>Deadline:</label>
+        <input name="deadline" type="date" value="{{ task.deadline }}">
+
+        <br><br>
+
+        <label>Priority:</label>
+        <select name="priority">
+            <option value="Low" {% if task.priority == "Low" %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if task.priority == "Medium" %}selected{% endif %}>Medium</option>
+            <option value="High" {% if task.priority == "High" %}selected{% endif %}>High</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Save Changes</button>
+
+    </form>
+
+    <br>
+
+    <a href="/">Cancel</a>
+
+</body>
+
+</html>
